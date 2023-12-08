@@ -1,0 +1,187 @@
+/* Reset or Normalize CSS (Optional) */
+/* This can help make default styles consistent across different browsers */
+/* Example: */
+/* include a reset or normalization library here */
+
+/* Main Styles */
+
+/* Global Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: monospace, sans-serif;
+    color: #fff;
+    background-color: #181818;
+    margin: 10px 20px 30px 40px; /* top, right, bottom, left */
+}
+
+/* The content before the footer will take up 100% of the empty space so that the footer is always located below the page */
+.content {
+    flex: 1;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3vw;
+    margin: 0 auto;
+}
+
+.header .header-text {
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+}
+
+.header-text h2 {
+    margin-bottom: 0;
+}
+
+.header-text h3 {
+    margin-top: 0;
+}
+
+.header .header-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 0;
+    padding-top: 15px;
+}
+
+.header .header-image img {
+    max-width: 90%;
+    height: auto;
+}
+
+/* About Me Section Styles */
+.about-me {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 10px;
+    margin: 0 auto; /* Add this line to center horizontally */
+    line-height: 1.1; /* Adjust as needed */
+    width: 30%; 
+    font-size: 16px;
+}
+
+.about-me h2 {
+    margin-bottom: 0; /* Adjust as needed */
+}
+
+.about-me p {
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+/* Link Container Styles */
+.link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+/* Anchor Styles */
+.link-container a {
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+}
+
+.link-container a:hover {
+    color: #066706 !important;
+}
+
+.link-container a:visited {
+    color: green;
+}
+
+/* Navigation Styles */
+.navigation {
+    background-color: #fff;
+}
+
+/* Footer Styles */
+.footer {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 1200px) {
+    body {
+        font-size: 5vw; /* Adjust as needed */
+    }
+}
+
+@media only screen and (max-width: 620px) {
+/* For mobile phones: */
+.header {
+    font-size: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+.header header-image {
+    margin: 0;
+    width: 50%;
+}    
+
+.header header-text {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    /* text-align: center; */
+}
+
+.header .header-image img {
+    max-width: 50%;
+    height: fit-content ;
+    margin: 0;
+    margin-left: 70px;
+    margin-right: -60px;
+}
+
+.about-me {
+    padding-left: 20vw;
+    padding-right: 20vw;
+    width: fit-content;
+}
+
+.about-me h2 {
+    margin-bottom: 0; /* Adjust as needed */
+    font-size: 3vw;
+}
+
+.about-me p {
+    font-size: 3vw;
+    margin-top: 2px;
+}
+
+
+.link-container a {
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 3vw;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+    color: #fff;
+    font-size: 10px;
+}
+
+}
