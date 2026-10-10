@@ -82,6 +82,8 @@ def build_post(post_directory):
     summary = post.get("summary", "")
     paper_title = post.get("paper_title", "")
     pdf = post.get("pdf", "")
+    publish_date = format_date(post.get("publish_date", ""))
+    topics = format_date(post.get("topics", ""))
 
     # --------------------------------------------------------
     # Convert Markdown -> HTML
@@ -102,7 +104,7 @@ def build_post(post_directory):
 
     paper_info = ""
 
-    if paper_title or authors or pdf:
+    if paper_title or authors or pdf or publish_date:
 
         paper_info = """
         <section class="paper-info">
@@ -117,11 +119,27 @@ def build_post(post_directory):
             </p>
             """
 
+        if publish_date:
+            paper_info += f"""
+            <p>
+                <strong>Publish date:</strong>
+                {html.escape(str(publish_date))}
+            </p>
+            """
+
         if authors:
             paper_info += f"""
             <p>
                 <strong>Authors:</strong>
                 {html.escape(str(authors))}
+            </p>
+            """
+
+        if topics: 
+            paper_info += f"""
+            <p>
+                <strong>Topics:</strong>
+                {html.escape(str(topics))}
             </p>
             """
 
@@ -285,7 +303,7 @@ def create_blog_card(post_directory):
         <article class="blog-card">
 
             <h2>
-                <a href="blog/{html.escape(folder_name, quote=True)}/">
+                <a href="blog/{html.escape(folder_name, quote=True)}/index.html">
                     {html.escape(str(title))}
                 </a>
             </h2>

@@ -1,10 +1,12 @@
 ---
-title: Compositional Lifelong Learning
-authors: Jorge A. Méndez and Eric Eaton
-date: 2026-10-20
+title: Integrated task and motion planning in belief space
+authors: Leslie Pack Kaelbling and Tomás Lozano-Pérez
+date: 2026-10-10
 summary: My review of compositional approaches to lifelong learning, with a focus on modular representations and knowledge transfer between tasks.
-paper_title: Compositional Lifelong Learning
+paper_title: Integrated task and motion planning in belief space
 pdf: paper.pdf
+publish_date: 2013-08-01
+topics: Reinforcement learning, etc.
 ---
 
 ## Introduction

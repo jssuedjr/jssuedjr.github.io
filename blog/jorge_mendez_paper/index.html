@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,15 +10,14 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Blog Post | Jaime Sued</title>
+    <title>Integrated task and motion planning in belief space | Jaime Sued</title>
 
-    <!-- Website styles -->
     <link rel="stylesheet" href="../../styles.css">
-
-    <!-- Blog styles -->
     <link rel="stylesheet" href="../../blog.css">
 
+
     <!-- MathJax configuration -->
+
     <script>
         MathJax = {
             tex: {
@@ -26,7 +26,9 @@
         };
     </script>
 
+
     <!-- MathJax -->
+
     <script
         defer
         src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
@@ -34,53 +36,110 @@
 
 </head>
 
+
 <body>
 
     <main class="blog-post">
 
-        <h1 id="my-first-mathematical-blog-post">My First Mathematical Blog Post</h1>
-<p>This is a test of <strong>Markdown</strong> and LaTeX on my website.</p>
-<h2 id="inline-mathematics">Inline Mathematics</h2>
-<p>Suppose that $X$ is a random variable with mean $\mu$ and
-variance $\sigma^2$.</p>
-<p>We can write its expected value as $\mathbb{E}[X] = \mu$.</p>
-<h2 id="display-mathematics">Display Mathematics</h2>
-<p>For a continuous random variable,</p>
+
+        <!-- ==========================
+             Article Header
+             ========================== -->
+
+        <header class="post-header">
+
+            <h1>Integrated task and motion planning in belief space</h1>
+
+            <p class="paper-authors">Leslie Pack Kaelbling and Tomás Lozano-Pérez</p>
+
+            <p class="post-date">October 10, 2026</p>
+
+            <p class="post-summary">My review of compositional approaches to lifelong learning, with a focus on modular representations and knowledge transfer between tasks.</p>
+
+        </header>
+
+
+        
+        <section class="paper-info">
+            <h2>Paper Information</h2>
+        
+            <p>
+                <strong>Paper:</strong>
+                Integrated task and motion planning in belief space
+            </p>
+            
+            <p>
+                <strong>Publish date:</strong>
+                August 01, 2013
+            </p>
+            
+            <p>
+                <strong>Authors:</strong>
+                Leslie Pack Kaelbling and Tomás Lozano-Pérez
+            </p>
+            
+            <p>
+                <strong>Topics:</strong>
+                Reinforcement learning, etc.
+            </p>
+            
+            <p>
+                <a
+                    class="paper-link"
+                    href="paper.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View original paper (PDF)
+                </a>
+            </p>
+            
+        </section>
+        
+
+
+        <!-- ==========================
+             Article
+             ========================== -->
+
+        <article class="post-content">
+
+            <h2 id="introduction">Introduction</h2>
+<p>This is where my actual review begins.</p>
+<p>Suppose we have a sequence of tasks</p>
 <p>$$
-\mathbb{E}[X]
-=
-\int_{-\infty}^{\infty} x f_X(x)\,dx.
+\mathcal{T}_1,\mathcal{T}_2,\ldots,\mathcal{T}_T.
 $$</p>
-<p>Similarly, the variance is</p>
+<p>The goal of lifelong learning is to use knowledge acquired from
+previous tasks when learning future tasks.</p>
+<h2 id="main-idea">Main Idea</h2>
+<p>The paper proposes...</p>
+<h2 id="mathematical-framework">Mathematical Framework</h2>
+<p>Suppose that</p>
 <p>$$
-\operatorname{Var}(X)
-=
-\mathbb{E}\left[(X-\mu)^2\right].
+\theta_t = Ls_t.
 $$</p>
-<h2 id="a-more-interesting-example">A More Interesting Example</h2>
-<p>If</p>
-<p>$$
-X \sim \mathcal{N}(\mu,\sigma^2),
-$$</p>
-<p>then its probability density function is</p>
-<p>$$
-f_X(x)
-=
-\frac{1}{\sqrt{2\pi\sigma^2}}
-\exp\left(
--\frac{(x-\mu)^2}{2\sigma^2}
-\right).
-$$</p>
-<p>That's pretty cool.</p>
-<h2 id="some-markdown">Some Markdown</h2>
-<p>I can also make:</p>
-<ul>
-<li>lists</li>
-<li><strong>bold text</strong></li>
-<li><em>italic text</em></li>
-<li><a href="https://example.com">links</a></li>
-</ul>
-<p>and combine all of this with mathematics.</p>
+<p>Here, $L$ represents...</p>
+<h2 id="why-i-found-this-interesting">Why I Found This Interesting</h2>
+<p>...</p>
+<h2 id="limitations-and-open-questions">Limitations and Open Questions</h2>
+<p>...</p>
+
+        </article>
+
+
+        <!-- ==========================
+             Navigation
+             ========================== -->
+
+        <nav class="post-navigation">
+
+            <a href="../../blog.html">
+                ← Back to Blog
+            </a>
+
+        </nav>
+
 
     </main>
 
