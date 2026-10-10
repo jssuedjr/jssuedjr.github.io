@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Blog Post | Jaime Sued</title>
+
+    <!-- Website styles -->
+    <link rel="stylesheet" href="../../styles.css">
+
+    <!-- Blog styles -->
+    <link rel="stylesheet" href="../../blog.css">
+
+    <!-- MathJax configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: {'[+]': [['$', '$']]}
+            }
+        };
+    </script>
+
+    <!-- MathJax -->
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+    </script>
+
+</head>
+
+<body>
+
+    <main class="blog-post">
+
+        <h1 id="my-first-mathematical-blog-post">My First Mathematical Blog Post</h1>
+<p>This is a test of <strong>Markdown</strong> and LaTeX on my website.</p>
+<h2 id="inline-mathematics">Inline Mathematics</h2>
+<p>Suppose that $X$ is a random variable with mean $\mu$ and
+variance $\sigma^2$.</p>
+<p>We can write its expected value as $\mathbb{E}[X] = \mu$.</p>
+<h2 id="display-mathematics">Display Mathematics</h2>
+<p>For a continuous random variable,</p>
+<p>$$
+\mathbb{E}[X]
+=
+\int_{-\infty}^{\infty} x f_X(x)\,dx.
+$$</p>
+<p>Similarly, the variance is</p>
+<p>$$
+\operatorname{Var}(X)
+=
+\mathbb{E}\left[(X-\mu)^2\right].
+$$</p>
+<h2 id="a-more-interesting-example">A More Interesting Example</h2>
+<p>If</p>
+<p>$$
+X \sim \mathcal{N}(\mu,\sigma^2),
+$$</p>
+<p>then its probability density function is</p>
+<p>$$
+f_X(x)
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left(
+-\frac{(x-\mu)^2}{2\sigma^2}
+\right).
+$$</p>
+<p>That's pretty cool.</p>
+<h2 id="some-markdown">Some Markdown</h2>
+<p>I can also make:</p>
+<ul>
+<li>lists</li>
+<li><strong>bold text</strong></li>
+<li><em>italic text</em></li>
+<li><a href="https://example.com">links</a></li>
+</ul>
+<p>and combine all of this with mathematics.</p>
+
+    </main>
+
+</body>
+
+</html>
