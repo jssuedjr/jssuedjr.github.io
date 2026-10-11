@@ -83,7 +83,7 @@ def build_post(post_directory):
     paper_title = post.get("paper_title", "")
     pdf = post.get("pdf", "")
     publish_date = format_date(post.get("publish_date", ""))
-    topics = format_date(post.get("topics", ""))
+    topics = post.get("topics", "")
 
     # --------------------------------------------------------
     # Convert Markdown -> HTML
@@ -185,14 +185,7 @@ def build_post(post_directory):
 
     <!-- MathJax configuration -->
 
-    <script>
-        MathJax = {{
-            tex: {{
-                inlineMath: {{'[+]': [['$', '$']]}}
-            }}
-        }};
-    </script>
-
+    <script src="../../mathjax-config.js"></script>
 
     <!-- MathJax -->
 
