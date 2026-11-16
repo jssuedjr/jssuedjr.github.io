@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differential Privacy and Kalman Filtering for IoT State Estimation | Jaime Sued</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../projects.css">
+    <!-- MathJax configuration -->
+    <script src="../../mathjax-config.js"></script>
+
+    <!-- MathJax 4 -->
+    <script
+        id="MathJax-script"
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+    <main class="project-page">
+        <header class="project-header">
+            <h1>Differential Privacy and Kalman Filtering for IoT State Estimation</h1>
+            <p class="project-date">May 01, 2026</p>
+        </header>
+
+        
+
+        <section class="project-section project-summary">
+            <h2>Project Summary</h2>
+            <p>Investigated the privacy–utility tradeoff in IoT sensor data using Laplace noise and Cubature Kalman filtering, comparing state estimation performance on synthetic and real-world datasets.</p>
+        </section>
+
+        <section class="project-section project-description">
+            <h2 id="overview">Overview</h2>
+<p>This project was completed as part of CIS600 at Syracuse University, in collaboration with Alex Duly and Mia Kerchen.</p>
+<p>The objective was to investigate whether <strong>Kalman filtering could improve the utility of sensor data perturbed by local differential privacy (LDP)</strong>, while preserving the motivation for privacy protection at the source.</p>
+<p>In Internet of Things (IoT) systems, sensors continuously collect and transmit measurements that may contain sensitive information. Local differential privacy aims to protect these measurements by adding noise before transmission. However, this introduces a tradeoff: increasing the amount of privacy noise can reduce the usefulness of the measurements for downstream applications.</p>
+<p>We investigated whether a <strong>Cubature Kalman Filter (CKF)</strong> could estimate the original states of a nonlinear system from measurements perturbed by Laplace noise.</p>
+<p>The project involved simulation, probabilistic state estimation, experimental evaluation, and analysis of the privacy–utility tradeoff using synthetic and real-world industrial IoT data.</p>
+<h2 id="github-repository">GitHub Repository</h2>
+<p><a href="https://github.com/jssuedjr/CIS600IoTProject">View the source code on GitHub</a></p>
+<h2 id="what-we-did">What We Did</h2>
+<h3 id="iot-state-estimation-simulation">IoT State Estimation Simulation</h3>
+<p>We developed a simulation representing an industrial IoT monitoring system with four state variables:</p>
+<ul>
+<li>Temperature</li>
+<li>Pressure</li>
+<li>Humidity</li>
+<li>Oxygen level</li>
+</ul>
+<p>The system state at time <span class="arithmatex">\(t\)</span> was represented as</p>
+<div class="arithmatex">\[
+x_t =
+\begin{bmatrix}
+T_t &amp; P_t &amp; H_t &amp; O_{2,t}
+\end{bmatrix}^{\top}.
+\]</div>
+<p>We used the Stone Soup Python library to configure a Cubature Kalman Filter for estimating these states from noisy sensor measurements.</p>
+<p>The simulation incorporated a nonlinear transition model, process uncertainty, measurement uncertainty, and intermittent sensor observations.</p>
+<h3 id="differential-privacy-noise">Differential Privacy Noise</h3>
+<p>We simulated local differential privacy by adding Laplace-distributed noise to individual sensor measurements before they were processed by the filter.</p>
+<p>The noise magnitude was controlled using a parameter <span class="arithmatex">\(\varepsilon\)</span>, with smaller values corresponding to larger noise scales in our experiments.</p>
+<p>We investigated three settings:</p>
+<div class="arithmatex">\[
+\varepsilon \in \{0.5,\ 2.0,\ 4.0\}.
+\]</div>
+<p>These settings allowed us to examine how changing the amount of injected noise affected the filter's estimation accuracy.</p>
+<h3 id="synthetic-and-real-world-data">Synthetic and Real-World Data</h3>
+<p>We evaluated the system using two types of data.</p>
+<p><strong>Synthetic data:</strong> We generated nonlinear state trajectories with statistical correlations between variables, introduced through the process-noise covariance matrix.</p>
+<p><strong>Real-world data:</strong> We used a subset of the <em>Smart Manufacturing IoT-Cloud Monitoring Dataset</em>, containing industrial process measurements.</p>
+<p>Because the real-world dataset did not include oxygen measurements, we generated an additional oxygen state for the experiments.</p>
+<p>We compared the filter's estimates with the original, unperturbed data using error metrics and visualizations.</p>
+<h2 id="mathematical-approach">Mathematical Approach</h2>
+<h3 id="local-differential-privacy-mechanism">Local Differential Privacy Mechanism</h3>
+<p>Let <span class="arithmatex">\(x_t\)</span> represent the underlying system state and let <span class="arithmatex">\(z_t\)</span> represent the sensor measurement before privacy perturbation.</p>
+<p>We modeled the privacy-perturbed measurement as</p>
+<div class="arithmatex">\[
+z_t^{\mathrm{DP}} = z_t + \eta_t,
+\]</div>
+<p>where <span class="arithmatex">\(\eta_t\)</span> represents independently generated Laplace noise.</p>
+<p>For a scalar Laplace random variable,</p>
+<div class="arithmatex">\[
+\eta \sim \operatorname{Laplace}(0,b),
+\]</div>
+<p>the variance is</p>
+<div class="arithmatex">\[
+\operatorname{Var}(\eta)=2b^2.
+\]</div>
+<p>In our experiments, the noise scale was chosen as</p>
+<div class="arithmatex">\[
+b=\frac{1}{\varepsilon}.
+\]</div>
+<p>Consequently, the additional variance associated with each perturbed measurement was</p>
+<div class="arithmatex">\[
+\sigma_{\mathrm{DP}}^2=\frac{2}{\varepsilon^2}.
+\]</div>
+<p>This gave us a controlled way to vary the magnitude of privacy noise.</p>
+<p>The experiments were intended to investigate a local differential privacy mechanism, but a formal audit of the achieved privacy guarantees was outside the scope of the project.</p>
+<h3 id="cubature-kalman-filtering">Cubature Kalman Filtering</h3>
+<p>We used a Cubature Kalman Filter to estimate the system states from noisy measurements.</p>
+<p>The state-space formulation can be represented as</p>
+<div class="arithmatex">\[
+x_{t+1}=f(x_t)+w_t,
+\]</div>
+<div class="arithmatex">\[
+z_t=h(x_t)+v_t,
+\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(f\)</span> represents the state transition model.</li>
+<li><span class="arithmatex">\(h\)</span> represents the measurement model.</li>
+<li><span class="arithmatex">\(w_t\)</span> represents process noise.</li>
+<li><span class="arithmatex">\(v_t\)</span> represents measurement noise.</li>
+</ul>
+<p>The CKF uses numerical integration based on cubature points to approximate the moments required for nonlinear Bayesian state estimation.</p>
+<p>A central consideration was how to account for the additional uncertainty introduced by the privacy mechanism.</p>
+<p>We modified the measurement-noise covariance used by the filter:</p>
+<div class="arithmatex">\[
+R_{\mathrm{eff}}=R+R_{\mathrm{DP}},
+\]</div>
+<p>where <span class="arithmatex">\(R\)</span> is the original measurement-noise covariance and <span class="arithmatex">\(R_{\mathrm{DP}}\)</span> represents the additional covariance associated with Laplace perturbations.</p>
+<p>For the four-state system with equal privacy-noise scales, we used</p>
+<div class="arithmatex">\[
+R_{\mathrm{DP}}
+=
+\frac{2}{\varepsilon^2}I_4.
+\]</div>
+<p>This allowed the filter to account for the increased measurement uncertainty.</p>
+<p>However, the CKF's Gaussian approximation does not exactly represent Laplace-distributed measurement noise. This approximation was an important limitation of the approach.</p>
+<h3 id="experimental-evaluation">Experimental Evaluation</h3>
+<p>We evaluated estimation accuracy by comparing the CKF estimates <span class="arithmatex">\(\hat{x}_t\)</span> with the unperturbed states <span class="arithmatex">\(x_t\)</span>.</p>
+<p>For each state variable, the root mean squared error was calculated as</p>
+<div class="arithmatex">\[
+\operatorname{RMSE}
+=
+\sqrt{
+\frac{1}{N}
+\sum_{t=1}^{N}
+(x_t-\hat{x}_t)^2
+}.
+\]</div>
+<p>We also examined moving-average behavior to assess how well the filter preserved trends in the underlying data.</p>
+<p>The experimental procedure was:</p>
+<ol>
+<li>Generate synthetic data or preprocess the real-world dataset.</li>
+<li>Simulate sensor measurements.</li>
+<li>Add Laplace-distributed privacy noise.</li>
+<li>Run the Cubature Kalman Filter.</li>
+<li>Compare estimated states with the original data.</li>
+<li>Repeat the experiment for different values of <span class="arithmatex">\(\varepsilon\)</span>.</li>
+</ol>
+<h2 id="results">Results</h2>
+<h3 id="synthetic-data">Synthetic Data</h3>
+<p>The CKF generally performed well on the synthetic dataset when the privacy noise was relatively small.</p>
+<p>For example, with <span class="arithmatex">\(\varepsilon=4.0\)</span>, the reported RMSE values were:</p>
+<table>
+<thead>
+<tr>
+<th>State Variable</th>
+<th style="text-align: right;">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temperature</td>
+<td style="text-align: right;">1.7928</td>
+</tr>
+<tr>
+<td>Pressure</td>
+<td style="text-align: right;">2.1849</td>
+</tr>
+<tr>
+<td>Humidity</td>
+<td style="text-align: right;">2.2898</td>
+</tr>
+<tr>
+<td>Oxygen</td>
+<td style="text-align: right;">0.6751</td>
+</tr>
+</tbody>
+</table>
+<p>As the privacy-noise scale increased, estimation generally became less accurate.</p>
+<p>At <span class="arithmatex">\(\varepsilon=0.5\)</span>, the RMSE values increased to:</p>
+<table>
+<thead>
+<tr>
+<th>State Variable</th>
+<th style="text-align: right;">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temperature</td>
+<td style="text-align: right;">3.2123</td>
+</tr>
+<tr>
+<td>Pressure</td>
+<td style="text-align: right;">3.6262</td>
+</tr>
+<tr>
+<td>Humidity</td>
+<td style="text-align: right;">3.0387</td>
+</tr>
+<tr>
+<td>Oxygen</td>
+<td style="text-align: right;">4.9376</td>
+</tr>
+</tbody>
+</table>
+<p>These results suggested that the filter could partially recover the underlying synthetic states despite privacy perturbations, but its performance deteriorated as the amount of injected noise increased.</p>
+<h3 id="real-world-data">Real-World Data</h3>
+<p>The results using real-world industrial data were substantially less successful.</p>
+<p>The CKF often produced estimates that were overly smooth or poorly matched to the underlying measurements.</p>
+<p>An important reason was <strong>model mismatch</strong>: the filter used the same assumed transition model developed for the synthetic data, even though the real-world measurements followed different dynamics.</p>
+<p>The real-world experiments also included a synthetically generated oxygen variable because the dataset did not provide oxygen readings.</p>
+<p>These limitations made the real-world results less reliable and highlighted the importance of choosing an appropriate dynamical model.</p>
+<h3 id="main-findings">Main Findings</h3>
+<p>The experiments illustrated several important observations:</p>
+<ul>
+<li>Kalman filtering can reduce the impact of added measurement noise when the assumed system dynamics are sufficiently accurate.</li>
+<li>Increasing the amount of privacy noise generally makes state estimation more difficult.</li>
+<li>Estimation performance depends strongly on the accuracy of the assumed transition and measurement models.</li>
+<li>A filter that performs well on synthetic data may generalize poorly to real-world measurements.</li>
+<li>Gaussian approximations of non-Gaussian privacy noise introduce additional modeling limitations.</li>
+</ul>
+<p>Our experiments were limited in scope and did not establish a formal differential privacy guarantee or demonstrate universally improved performance.</p>
+<h2 id="limitations-and-discussion">Limitations and Discussion</h2>
+<h3 id="privacy-guarantees">Privacy Guarantees</h3>
+<p>Although we simulated a Laplace-based local differential privacy mechanism, the project did not formally audit the privacy guarantees of the complete system.</p>
+<p>The relationship between the privacy parameter, measurement sensitivity, and the resulting privacy guarantees requires careful consideration.</p>
+<p>Furthermore, reconstructing individual measurements from privacy-perturbed observations raises important questions about the relationship between statistical estimation and the intended privacy protection.</p>
+<h3 id="model-mismatch">Model Mismatch</h3>
+<p>The synthetic experiments benefited from using an assumed transition model closely related to the model that generated the data.</p>
+<p>The real-world experiments did not have this advantage.</p>
+<p>This demonstrated the importance of accurately modeling system dynamics when applying Bayesian state estimation to unfamiliar data.</p>
+<h3 id="non-gaussian-noise">Non-Gaussian Noise</h3>
+<p>The CKF was configured using a Gaussian approximation to the Laplace noise introduced by the privacy mechanism.</p>
+<p>Although the covariance could be adjusted to account for the additional uncertainty, the underlying noise distribution was not Gaussian.</p>
+<p>More robust filtering methods may be better suited to such settings.</p>
+<h3 id="experimental-scope">Experimental Scope</h3>
+<p>The project was conducted entirely through simulation and did not include a physical IoT sensor network.</p>
+<p>Additional experiments, repeated simulation trials, and more extensive model calibration would be necessary to make stronger conclusions about practical deployment.</p>
+<h2 id="future-directions">Future Directions</h2>
+<p>Potential extensions of this work include:</p>
+<ul>
+<li>Investigating robust Bayesian filters that explicitly accommodate non-Gaussian measurement noise.</li>
+<li>Developing transition models calibrated to the dynamics of real-world IoT measurements.</li>
+<li>Conducting repeated Monte Carlo experiments to quantify the variability of estimation performance.</li>
+<li>Studying the relationship between formal differential privacy guarantees and sequential state estimation.</li>
+<li>Comparing CKF estimates against alternative filtering and smoothing methods.</li>
+<li>Implementing a physical IoT sensor network to investigate communication loss, sensor reliability, and real-time computational constraints.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>This project explored the interaction between <strong>differential privacy and Bayesian state estimation</strong> in an industrial IoT setting.</p>
+<p>The synthetic experiments demonstrated that a Cubature Kalman Filter could partially reconstruct underlying system states from measurements perturbed by Laplace noise. However, the less successful real-world experiments highlighted the sensitivity of filtering methods to model mismatch and the challenges of applying theoretical assumptions to real data.</p>
+<p>The project provided experience with nonlinear filtering, probabilistic modeling, numerical simulation, and experimental evaluation, while motivating further questions about the relationship between privacy, uncertainty, and statistical estimation.</p>
+<h2 id="collaborators">Collaborators</h2>
+<ul>
+<li>Alex Duly</li>
+<li>Mia Kerchen</li>
+<li>Jaime Sued</li>
+</ul>
+        </section>
+
+        <section class="project-section">
+            <h2>Methods &amp; Tools</h2>
+            <div class="tool-list"><span class="tool-tag">Python</span><span class="tool-tag">NumPy</span><span class="tool-tag">Stone Soup</span><span class="tool-tag">Matplotlib</span></div></section>
+        <section class="project-paper">
+        <h2>Accurate and Private Device State Monitoring with Kalman Filters</h2>
+        <div class="pdf-embed">
+            <iframe src="papers/paper.pdf" title="Accurate and Private Device State Monitoring with Kalman Filters" loading="lazy"></iframe>
+        </div>
+        <p class="paper-actions">
+            <a class="project-button" href="papers/paper.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+            <a class="project-button" href="papers/paper.pdf" download>Download PDF</a>
+        </p>
+    </section>
+        <section class="project-presentation"><h2>CIS600 IoT Project Presentation</h2>
+        <div class="pdf-embed">
+            <iframe
+                src="presentations/presentation.pdf"
+                title="CIS600 IoT Project Presentation"
+                loading="lazy">
+            </iframe>
+        </div>
+        </section>
+
+        <nav class="project-navigation">
+            <a href="../../projects.html">← Back to Projects</a>
+        </nav>
+    </main>
+</body>
+</html>

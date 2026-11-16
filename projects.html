@@ -1,30 +1,56 @@
-<!DOCTYPE html> <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-    body {
-        font-family: monospace, sans-serif;
-        color: #fff;
-        background-color: #181818;
-        margin: 10px 20px 30px 40px; /* top, right, bottom, left */
-    } 
-    </style>
+    <title>Projects | Jaime Sued</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="projects.css">
 </head>
-
 <body>
-    <p style="background-color: aqua;"> sup </p>
-    <p> fill this out with stuff </p>
-
-    <section id="links" class="link-container">
-        <a href="index.html" target="_self"> Home </a> 
-        <a href="resume.pdf" target="_blank"> Resume </a>
-        <a href="https://www.github.com" target="_blank"> Github </a>
-        <a href="blog.html" target="_self"> Math blog </a>
-    </section>
+    <main class="projects-content">
+        <header class="projects-header">
+            <h1>Projects</h1>
+            <p>A selection of projects in machine learning, statistics, signal processing, quantitative modeling, and related areas.</p>
+        </header>
+        <section class="project-grid">
+            <article class="project-card">
+        <a class="project-card-link" href="projects/differential_privacy_kalman/index.html">
+            <img class="project-card-image" src="projects/differential_privacy_kalman/thumbnail/graph.png" alt="Differential Privacy and Kalman Filtering for IoT State Estimation preview">
+            <div class="project-card-body">
+                <h2>Differential Privacy and Kalman Filtering for IoT State Estimation</h2>
+                <p class="project-card-summary">Investigated the privacy–utility tradeoff in IoT sensor data using Laplace noise and Cubature Kalman filtering, comparing state estimation performance on synthetic and real-world datasets.</p>
+                <p class="project-card-date">May 01, 2026</p>
+            </div>
+        </a>
+    </article>
+<article class="project-card">
+        <a class="project-card-link" href="projects/radar/index.html">
+            <img class="project-card-image" src="projects/radar/thumbnail/radar.gif" alt="Master&#x27;s Research: Information-Theoretic Radar Scheduling preview">
+            <div class="project-card-body">
+                <h2>Master&#x27;s Research: Information-Theoretic Radar Scheduling</h2>
+                <p class="project-card-summary">Research on radar resource management under uncertainty, combining Bayesian target tracking, probabilistic occupancy modeling, and information-theoretic scheduling in a Python simulation environment.</p>
+                <p class="project-card-date">June 20, 2025</p>
+            </div>
+        </a>
+    </article>
+<article class="project-card">
+        <a class="project-card-link" href="projects/naive_bayes_mnist/index.html">
+            <img class="project-card-image" src="projects/naive_bayes_mnist/thumbnail/naive.png" alt="Handwritten Digit Recognition with Bernoulli Naive Bayes preview">
+            <div class="project-card-body">
+                <h2>Handwritten Digit Recognition with Bernoulli Naive Bayes</h2>
+                <p class="project-card-summary">Implemented a Bernoulli Naive Bayes classifier from scratch for handwritten digit recognition, achieving 84.16% test accuracy on MNIST and developing an interactive application for classifying user-drawn digits.</p>
+                <p class="project-card-date">December 13, 2024</p>
+            </div>
+        </a>
+    </article>
+        </section>
+        <nav class="link-container">
+            <a href="index.html">Home</a>
+            <a href="resume.pdf" target="_blank">Resume</a>
+            <a href="https://www.github.com/jssuedjr" target="_blank" rel="noopener noreferrer">Github</a>
+            <a href="blog.html">Math blog</a>
+        </nav>
+    </main>
 </body>
-
 </html>

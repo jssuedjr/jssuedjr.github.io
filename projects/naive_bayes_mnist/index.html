@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwritten Digit Recognition with Bernoulli Naive Bayes | Jaime Sued</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../projects.css">
+    <!-- MathJax configuration -->
+    <script src="../../mathjax-config.js"></script>
+
+    <!-- MathJax 4 -->
+    <script
+        id="MathJax-script"
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+    <main class="project-page">
+        <header class="project-header">
+            <h1>Handwritten Digit Recognition with Bernoulli Naive Bayes</h1>
+            <p class="project-date">December 13, 2024</p>
+        </header>
+
+        
+
+        <section class="project-section project-summary">
+            <h2>Project Summary</h2>
+            <p>Implemented a Bernoulli Naive Bayes classifier from scratch for handwritten digit recognition, achieving 84.16% test accuracy on MNIST and developing an interactive application for classifying user-drawn digits.</p>
+        </section>
+
+        <section class="project-section project-description">
+            <h2 id="overview">Overview</h2>
+<p>This project was completed for CIS662 in December 2024. Its objective was to develop a probabilistic classifier capable of recognizing handwritten digits from the MNIST dataset and classifying new digits drawn by users in an interactive application.</p>
+<p>I implemented a <strong>Bernoulli Naive Bayes classifier from scratch</strong> using Python and NumPy, trained it on the MNIST dataset, and developed a Pygame application that allows users to draw digits and receive predictions from the trained model.</p>
+<p>The project explored Bayesian classification, conditional independence assumptions, numerical computation of likelihoods, and the challenges of applying a statistical model to data collected under different conditions.</p>
+<h2 id="github-repository">GitHub Repository</h2>
+<p><a href="https://github.com/jssuedjr/CIS662_finalproject">View the source code on GitHub</a></p>
+<h2 id="what-i-did">What I Did</h2>
+<h3 id="bernoulli-naive-bayes-implementation">Bernoulli Naive Bayes Implementation</h3>
+<p>I implemented a Naive Bayes classifier using a Bernoulli observation model, representing each pixel as a binary random variable.</p>
+<p>The classifier was trained using the MNIST dataset, consisting of 60,000 training images and 10,000 testing images, each with a resolution of 28 × 28 pixels.</p>
+<p>I estimated the class-conditional probability of each pixel being active for each digit class and used a uniform prior over the ten possible digits.</p>
+<p>The implementation also incorporated additive smoothing to avoid zero-valued probability estimates.</p>
+<h3 id="interactive-handwritten-digit-recognition">Interactive Handwritten Digit Recognition</h3>
+<p>In addition to evaluating the classifier on MNIST, I developed an interactive drawing application using Pygame.</p>
+<p>The application allows users to draw handwritten digits with their mouse, clear the canvas, and request a prediction from the trained classifier.</p>
+<p>Because the drawing canvas had a different resolution from MNIST, I implemented a preprocessing procedure to transform user-drawn images into binary 28 × 28 representations.</p>
+<p>This component allowed me to investigate how the classifier generalized beyond the original MNIST test dataset.</p>
+<h2 id="mathematical-approach">Mathematical Approach</h2>
+<h3 id="bayesian-classification">Bayesian Classification</h3>
+<p>Let <span class="arithmatex">\(C_k\)</span> denote the class corresponding to digit <span class="arithmatex">\(k\)</span>, and let <span class="arithmatex">\(I=(x_1,\ldots,x_n)\)</span> denote a binarized image containing <span class="arithmatex">\(n=784\)</span> pixels.</p>
+<p>Using Bayes' theorem, the posterior probability of a digit class is</p>
+<div class="arithmatex">\[
+P(C_k\mid I)
+=
+\frac{P(I\mid C_k)P(C_k)}{P(I)}.
+\]</div>
+<p>Under the Naive Bayes conditional independence assumption, the likelihood factors into individual pixel probabilities:</p>
+<div class="arithmatex">\[
+P(I\mid C_k)
+=
+\prod_{i=1}^{n}P(x_i\mid C_k).
+\]</div>
+<p>For Bernoulli-distributed pixels, define</p>
+<div class="arithmatex">\[
+\theta_{ki}=P(x_i=1\mid C_k).
+\]</div>
+<p>Then the class-conditional likelihood is</p>
+<div class="arithmatex">\[
+P(I\mid C_k)
+=
+\prod_{i=1}^{n}
+\theta_{ki}^{x_i}
+(1-\theta_{ki})^{1-x_i}.
+\]</div>
+<p>I used a uniform class prior,</p>
+<div class="arithmatex">\[
+P(C_k)=\frac{1}{10},
+\]</div>
+<p>and estimated the Bernoulli parameters from the training images belonging to each digit class.</p>
+<h3 id="log-likelihood-computation">Log-Likelihood Computation</h3>
+<p>Directly multiplying hundreds of pixel probabilities can lead to numerical underflow. To address this, I performed classification using log-probabilities.</p>
+<p>The predicted class is</p>
+<div class="arithmatex">\[
+\hat{C}(I)
+=
+\argmax_{C_k}
+\left[
+\log P(C_k)
++
+\sum_{i=1}^{784}
+\left(
+x_i\log\theta_{ki}
++
+(1-x_i)\log(1-\theta_{ki})
+\right)
+\right].
+\]</div>
+<p>This formulation converts products into sums and can be implemented efficiently using NumPy matrix operations.</p>
+<h3 id="image-preprocessing">Image Preprocessing</h3>
+<p>The MNIST images were binarized to make their pixel representations compatible with the binary observation model and the user-drawing application.</p>
+<p>For new user-drawn inputs, I implemented a block-based downsampling procedure to transform the larger drawing canvas into a 28 × 28 binary image.</p>
+<p>The resulting image was flattened into a vector and passed to the trained classifier.</p>
+<h2 id="results">Results</h2>
+<p>The model achieved the following performance on the MNIST dataset:</p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Classification Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training set</td>
+<td>83.15%</td>
+</tr>
+<tr>
+<td>Testing set</td>
+<td>84.16%</td>
+</tr>
+</tbody>
+</table>
+<p>I evaluated classification performance using scikit-learn metrics, including a classification report and confusion matrix.</p>
+<p>The results showed that the classifier correctly identified a substantial proportion of handwritten digits, although performance varied between classes.</p>
+<p>In particular, the model encountered difficulties distinguishing certain digits, including 4, 5, and 9.</p>
+<p>Performance on newly drawn digits was considerably less reliable than performance on the MNIST test set. This suggested that the preprocessing pipeline and differences between the training and application data distributions were important limitations.</p>
+<h2 id="limitations-and-discussion">Limitations and Discussion</h2>
+<p>Several limitations became apparent during the project.</p>
+<p><strong>Conditional independence assumption:</strong> Naive Bayes assumes that pixel values are conditionally independent given the digit class. In handwritten images, neighboring pixels are spatially correlated, so this assumption is generally violated.</p>
+<p><strong>Information loss from binarization:</strong> Converting grayscale MNIST images into binary representations removes intensity information that may be useful for classification.</p>
+<p><strong>Preprocessing of user-drawn inputs:</strong> Resizing and binarizing drawings from the Pygame canvas can change digit shapes and produce inputs that differ substantially from the MNIST training distribution.</p>
+<p><strong>Generalization:</strong> Although the model achieved reasonable performance on the MNIST test set, its accuracy on new user-drawn inputs was lower. This highlighted the importance of considering how data collection and preprocessing affect the deployment of statistical models.</p>
+<h2 id="future-improvements">Future Improvements</h2>
+<p>Possible extensions of this project include:</p>
+<ul>
+<li>Improving the preprocessing pipeline for user-drawn digits, particularly resizing, centering, and preserving digit geometry.</li>
+<li>Comparing Bernoulli Naive Bayes with alternative observation models, such as Gaussian Naive Bayes.</li>
+<li>Investigating the effect of different class priors and smoothing parameters.</li>
+<li>Performing a more systematic evaluation of performance on user-generated digits.</li>
+<li>Comparing the probabilistic classifier with models that can capture spatial relationships between pixels.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>This project provided practical experience implementing a probabilistic machine learning model, deriving its prediction rule from Bayesian principles, and evaluating its performance on both benchmark data and user-generated inputs.</p>
+<p>It also demonstrated how assumptions that simplify statistical inference, particularly conditional independence, can limit predictive performance when applied to structured data such as images.</p>
+        </section>
+
+        <section class="project-section">
+            <h2>Methods &amp; Tools</h2>
+            <div class="tool-list"><span class="tool-tag">Python</span><span class="tool-tag">NumPy</span><span class="tool-tag">scikit-learn</span><span class="tool-tag">Pygame</span><span class="tool-tag">Matplotlib</span></div></section>
+        <section class="project-paper">
+        <h2>CIS662 Final Project: Naive Bayes Digit Classifier</h2>
+        <div class="pdf-embed">
+            <iframe src="papers/paper.pdf" title="CIS662 Final Project: Naive Bayes Digit Classifier" loading="lazy"></iframe>
+        </div>
+        <p class="paper-actions">
+            <a class="project-button" href="papers/paper.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+            <a class="project-button" href="papers/paper.pdf" download>Download PDF</a>
+        </p>
+    </section>
+        
+
+        <nav class="project-navigation">
+            <a href="../../projects.html">← Back to Projects</a>
+        </nav>
+    </main>
+</body>
+</html>

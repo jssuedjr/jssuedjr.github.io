@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master&#x27;s Research: Information-Theoretic Radar Scheduling | Jaime Sued</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../projects.css">
+    <!-- MathJax configuration -->
+    <script src="../../mathjax-config.js"></script>
+
+    <!-- MathJax 4 -->
+    <script
+        id="MathJax-script"
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+    <main class="project-page">
+        <header class="project-header">
+            <h1>Master&#x27;s Research: Information-Theoretic Radar Scheduling</h1>
+            <p class="project-date">June 20, 2025</p>
+        </header>
+
+        <section class="project-media" aria-label="Project media">
+        <div class="project-media-grid">
+            <figure class="project-media-item">
+                <img src="images/image2.gif" alt="Project media for Master&#x27;s Research: Information-Theoretic Radar Scheduling" loading="lazy">
+            </figure><figure class="project-media-item">
+                <img src="images/image3.gif" alt="Project media for Master&#x27;s Research: Information-Theoretic Radar Scheduling" loading="lazy">
+            </figure>
+        </div>
+    </section>
+
+        <section class="project-section project-summary">
+            <h2>Project Summary</h2>
+            <p>Research on radar resource management under uncertainty, combining Bayesian target tracking, probabilistic occupancy modeling, and information-theoretic scheduling in a Python simulation environment.</p>
+        </section>
+
+        <section class="project-section project-description">
+            <h2 id="overview">Overview</h2>
+<p>This project was conducted as part of a research collaboration between SAAB and Syracuse University. The objective was to investigate <strong>radar resource management (RRM)</strong> using probabilistic modeling, Bayesian estimation, and information theory.</p>
+<p>Radar systems operate under limited sensing resources and must decide how to allocate observations between tracking known targets and searching for previously undetected targets. This presents a sequential decision-making problem under uncertainty: the radar must choose where to observe while accounting for incomplete knowledge of target locations, motion, and the environment.</p>
+<p>My research focused on developing a simulation environment for investigating this problem and exploring information-theoretic criteria for adaptive radar scheduling.</p>
+<h2 id="github-repository">GitHub Repository</h2>
+<p><a href="https://github.com/jssuedjr/saab-radar-project">View the source code on GitHub</a></p>
+<h2 id="what-i-did">What I Did</h2>
+<h3 id="radar-simulation-and-target-tracking">Radar Simulation and Target Tracking</h3>
+<p>I developed and worked with a Python radar simulation environment using <strong>Stone Soup</strong>, an open-source framework for target tracking and state estimation.</p>
+<p>The simulation modeled moving targets, radar observations, and target-state estimation using Extended Kalman filtering (EKF).</p>
+<p>The estimated target states and covariance matrices provided probabilistic information about target locations and their uncertainty, which could be used to inform subsequent radar observations.</p>
+<h3 id="probabilistic-range-cell-modeling">Probabilistic Range-Cell Modeling</h3>
+<p>I investigated methods for representing uncertainty over the radar's surveillance region.</p>
+<p>The region was divided into range cells, with each cell associated with a probability of target occupancy.</p>
+<p>For a range cell <span class="arithmatex">\(i\)</span>, I considered the probability</p>
+<div class="arithmatex">\[
+p_i = P(X_i = 1),
+\]</div>
+<p>where <span class="arithmatex">\(X_i\)</span> is a binary random variable indicating whether the cell is occupied.</p>
+<p>One approach involved using Monte Carlo sampling from predicted Gaussian target-state distributions to approximate the probability that a target would occupy a particular range cell.</p>
+<p>I also explored Bayesian probability updates following detections and non-detections, along with mechanisms for propagating occupancy probabilities between observations.</p>
+<h3 id="information-theoretic-radar-scheduling">Information-Theoretic Radar Scheduling</h3>
+<p>A central part of the research involved investigating <strong>expected information gain (EIG)</strong> as a criterion for radar resource allocation.</p>
+<p>The underlying idea was to prioritize observations according to their expected reduction in uncertainty.</p>
+<p>For a binary occupancy variable, uncertainty can be measured using binary entropy:</p>
+<div class="arithmatex">\[
+H(p) = -p\log p - (1-p)\log(1-p).
+\]</div>
+<p>The expected information gain associated with a radar observation can be written as</p>
+<div class="arithmatex">\[
+\operatorname{EIG}(X;Z)
+=
+H(X)-\mathbb{E}_{Z}[H(X\mid Z)],
+\]</div>
+<p>where <span class="arithmatex">\(X\)</span> represents the uncertain state and <span class="arithmatex">\(Z\)</span> represents a possible radar observation.</p>
+<p>I investigated how this criterion could be applied to scanning unobserved regions and updating existing target tracks.</p>
+<h2 id="approach">Approach</h2>
+<p>The research followed several connected stages:</p>
+<ol>
+<li><strong>State estimation:</strong> Use target-tracking models to estimate target states and associated uncertainty.</li>
+<li><strong>Spatial probability representation:</strong> Map predicted target distributions into probabilistic range-cell occupancy estimates.</li>
+<li><strong>Information-theoretic evaluation:</strong> Investigate the expected reduction in uncertainty associated with candidate radar observations.</li>
+<li><strong>Action selection:</strong> Explore how information-based criteria could guide radar scanning and tracking decisions.</li>
+<li><strong>Model refinement:</strong> Examine undesirable scheduling behavior and investigate alternative objective functions.</li>
+</ol>
+<p>An important aspect of the research was understanding the relationship between the mathematical objective and the behavior it encouraged in the simulated radar system.</p>
+<h2 id="research-observations-and-limitations">Research Observations and Limitations</h2>
+<p>During development, I encountered several limitations of using expected information gain as a standalone scheduling objective.</p>
+<p>In particular:</p>
+<ul>
+<li>Maximizing expected information gain did not necessarily prioritize the cells with the greatest current uncertainty.</li>
+<li>Detection probabilities and the observation model substantially influenced the expected value of scanning a cell.</li>
+<li>The initial formulation could produce undesirable scheduling patterns, including abrupt changes in radar direction.</li>
+<li>Combining information measures for continuous target-state distributions and discrete occupancy variables required careful treatment, since differential entropy and discrete entropy are not directly comparable.</li>
+</ul>
+<p>These observations motivated further investigation into a broader utility-based scheduling formulation.</p>
+<p>I explored incorporating additional factors such as revisit time, detection probability, uncertainty, and radar dwell time into the decision objective.</p>
+<p>I also investigated probabilistic prediction mechanisms intended to account for changes in occupancy between radar observations.</p>
+<p><strong>These extensions were exploratory rather than comprehensively implemented and validated.</strong></p>
+<p>Although the simulation was functional, the project concluded before I could conduct a systematic experimental comparison of scheduling policies. Consequently, I do not claim that the proposed approaches improved tracking accuracy or radar resource efficiency relative to established baselines.</p>
+<h2 id="future-directions">Future Directions</h2>
+<p>Several natural extensions of this work include:</p>
+<ul>
+<li>Evaluating information-theoretic scheduling policies against simpler baseline strategies.</li>
+<li>Investigating longer-horizon planning rather than purely myopic action selection.</li>
+<li>Formulating radar resource management as a Markov decision process (MDP) or partially observable Markov decision process (POMDP).</li>
+<li>Studying the tradeoffs between tracking uncertainty, target detection, revisit frequency, and sensing costs.</li>
+<li>Developing more realistic target-motion and radar-observation models.</li>
+</ul>
+<p>This project helped develop my interest in <strong>probabilistic modeling, information theory, and sequential decision-making under uncertainty</strong>, particularly in applications where mathematical objectives must be translated into effective decisions.</p>
+        </section>
+
+        <section class="project-section">
+            <h2>Methods &amp; Tools</h2>
+            <div class="tool-list"><span class="tool-tag">Python</span><span class="tool-tag">NumPy</span><span class="tool-tag">SciPy</span><span class="tool-tag">StoneSoup</span><span class="tool-tag">Extended Kalman Filter</span><span class="tool-tag">Monte Carlo Simulation</span></div></section>
+        <section class="project-paper">
+        <h2>SAAB–Syracuse Research Presentation</h2>
+        <div class="pdf-embed">
+            <iframe src="papers/paper.pdf" title="SAAB–Syracuse Research Presentation" loading="lazy"></iframe>
+        </div>
+        <p class="paper-actions">
+            <a class="project-button" href="papers/paper.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+            <a class="project-button" href="papers/paper.pdf" download>Download PDF</a>
+        </p>
+    </section>
+        <section class="project-presentation"><h2>Research Presentation</h2>
+        <div class="pdf-embed">
+            <iframe
+                src="presentations/presentation.pdf"
+                title="Research Presentation"
+                loading="lazy">
+            </iframe>
+        </div>
+        </section>
+
+        <nav class="project-navigation">
+            <a href="../../projects.html">← Back to Projects</a>
+        </nav>
+    </main>
+</body>
+</html>

@@ -4,9 +4,15 @@ window.MathJax = {
     },
 
     tex: {
-        inlineMath: {
-            '[+]': [['$', '$']]
-        },
+        inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)']
+        ],
+
+        displayMath: [
+            ['$$', '$$'],
+            ['\\[', '\\]']
+        ],
 
         packages: {
             '[+]': ['ams', 'mathtools']
@@ -26,7 +32,13 @@ window.MathJax = {
             Corr: "\\operatorname{Corr}",
 
             argmax: "\\operatorname*{arg\\,max}",
-            argmin: "\\operatorname*{arg\\,min}"
+            argmin: "\\operatorname*{arg\\,min}",
+
+            ind: "\\mathbb{1}",
+            KL: "\\operatorname{KL}",
+            MI: "\\operatorname{MI}",
+            tr: "\\operatorname{tr}",
+            diag: "\\operatorname{diag}",
         }
     }
 };

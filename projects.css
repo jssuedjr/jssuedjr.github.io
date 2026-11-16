@@ -1,0 +1,55 @@
+/* Projects index */
+.projects-content { max-width: 1100px; margin: 0 auto; padding: 50px 25px; }
+.projects-header { max-width: 800px; margin: 0 auto 42px; text-align: center; }
+.projects-header h1 { font-size: 36px; margin-bottom: 15px; }
+.projects-header p { font-size: 18px; line-height: 1.6; }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+.project-card { border: 1px solid #444; border-radius: 8px; overflow: hidden; }
+.project-card-link, .project-card-link:link, .project-card-link:visited { display: block; height: 100%; color: inherit; text-decoration: none; }
+.project-card-image { display: block; width: 100%; height: 220px; object-fit: contain; padding: 12px 12px 0; box-sizing: border-box; }
+.project-card-body { padding: 22px 25px 25px; }
+.project-card h2 { margin: 0 0 12px; }
+.project-card-link h2, .project-card-link:link h2, .project-card-link:visited h2 { color: #8ecaff; }
+.project-card-link:hover h2, .project-card-link:focus-visible h2 { color: #c4e5ff; text-decoration: underline; }
+.project-card-summary { line-height: 1.5; color: #d1d5db; }
+.project-card-date { color: #aaa; font-size: 14px; }
+
+/* Individual project pages */
+.project-page { max-width: 1000px; margin: 0 auto; padding: 55px 30px; }
+.project-header { text-align: center; margin-bottom: 36px; }
+.project-header h1 { font-size: 36px; margin-bottom: 15px; }
+.project-date { color: #aaa; font-size: 14px; }
+.project-section, .project-paper, .project-presentation { max-width: 850px; margin: 35px auto; }
+.project-description { font-size: 17px; line-height: 1.75; }
+.project-description h2 { margin-top: 42px; }
+.project-description h3 { margin-top: 30px; }
+.project-description p { margin-bottom: 20px; }
+.project-description img { display: block; max-width: 100%; height: auto; margin: 30px auto; }
+.project-description a:link, .project-description a:visited,
+.project-navigation a:link, .project-navigation a:visited,
+.project-paper a:link, .project-paper a:visited,
+.project-presentation a:link, .project-presentation a:visited { color: #8ecaff; }
+.project-description a:hover, .project-navigation a:hover,
+.project-paper a:hover, .project-presentation a:hover { color: #c4e5ff; }
+.project-description mjx-container[display="true"] { margin: 26px 0; overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+
+/* Media gallery: two closely spaced columns */
+.project-media { max-width: 850px; margin: 0 auto 35px; }
+.project-media-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: center; }
+.project-media-item { margin: 0; min-width: 0; }
+.project-media-item img, .project-media-item video { display: block; width: 100%; height: auto; max-height: 320px; object-fit: contain; border-radius: 8px; }
+
+/* PDFs and downloadable presentations */
+.pdf-embed iframe { display: block; width: 100%; height: 560px; border: 1px solid #444; border-radius: 8px; }
+.paper-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.tool-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool-tag { padding: 5px 10px; border: 1px solid #555; border-radius: 999px; font-size: 14px; }
+.project-navigation { max-width: 850px; margin: 55px auto 0; padding-top: 22px; border-top: 1px solid #444; }
+
+@media (max-width: 650px) {
+  .projects-content, .project-page { padding: 30px 16px; }
+  .project-header h1 { font-size: 28px; }
+  .project-description { font-size: 16px; }
+  .project-media-grid { grid-template-columns: 1fr; }
+  .pdf-embed iframe { height: 420px; }
+}
